@@ -1,0 +1,23 @@
+{
+  "name": "skytemple-patcher",
+  "version": "0.1.0",
+  "description": "Web-based ROM patching tool for PMD: EoS",
+  "main": "index.js",
+  "scripts": {
+    "start": "web-dev-server --node-resolve --watch --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkyTemple/patcher.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SkyTemple/patcher/issues"
+  },
+  "homepage": "https://github.com/SkyTemple/patcher#readme",
+  "devDependencies": {
+    "@web/dev-server": "^0.1.17"
+  },
+  "dependencies": {
+  }
+}
