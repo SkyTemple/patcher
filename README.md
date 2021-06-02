@@ -12,6 +12,8 @@ The following query parameters are supported. You must pass at least either `nam
 - `region`: The region of the ROM the patch was generated from, currently `us` and `eu` are supported (default: `us`). Ignored if `name` is set.
 - `sha1` (optional): The SHA-1 checksum of the final patched ROM. If provided, it is used to validate if the patch was applied correctly.
 
+Example URL: https://skytemple.github.io/patcher/?region=us&url=https%3A%2F%2Fskytemple.github.io%2Fpatcher%2Fpatches%2Ftest.xdelta&sha1=2101b39b823c6a651b9ab95b906ecd2755a97d99
+
 ## Limitations
 
 - Secondary compression is not supported. Please disable secondary compression with the `-S` flag when generating patches with `xdelta`.
