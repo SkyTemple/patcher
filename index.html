@@ -8,12 +8,23 @@
     <script src="index.js" type="module"></script>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;display=swap">
   </head>
   <body>
-    <p>
-      <input id="rom-file" type="file">
-    </p>
-    <button id="submit" type="button" disabled>Patch</button>
-    <p id="error"></p>
+    <div class="wrapper">
+      <div class="background">
+        <h1>SkyTemple ROM Patcher</h1>
+        <div class="input-wrapper">
+          <label for="rom-file">Select or Drag and Drop a ROM file:</label>
+          <input id="rom-file" type="file">
+        </div>
+
+        <div class="button-container">
+          <div class="progress-button"></div>
+          <button id="submit" type="button" class="apply-button" disabled>Apply patch</button>
+        </div>
+        <p id="error"></p>
+      </div>
+    </div>
   </body>
 </html>

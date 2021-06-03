@@ -1,4 +1,112 @@
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: #222;
+  background-color: ;
+  background-image: url("https://hacks.skytemple.org/static/splash.jpg");
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.02rem;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 620px;
+  max-width: 90%;
+}
+
+.background {
+  margin-top: 80px;
+  background: rgb(255, 255, 255, 0.8);
+  border-radius: 16px;
+  padding: 16px 32px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label {
+  width: 220px;
+  margin-right: 8px;
+}
+
+input[type="file"] {
+  background-color: #eeeeeeb3;
+  padding: 8px 16px 8px 16px;
+  border-radius: 4px;
+  width: 300px;
+  font-family: inherit;
+  font-weight: 300;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  letter-spacing: inherit;
+}
+
+label:hover, input[type="file"]:hover {
+  cursor: pointer;
+}
+
+input[type="file"]:hover, input[type="file"]:focus, input[type="file"]:active {
+  background-color: #dfddd9;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+button {
+  background-color: #dbb460;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover, button:active, button:focus {
+  background-color: #c5901f;
+}
+
+button[disabled] {
+  background-color: rgba(223, 221, 217, 0.7);
+  cursor: not-allowed;
+}
+
+.apply-button {
+  margin-top: 20px;
+}
+
+#error a {
+  color: #e9dcc8;
+}
+
 #error {
   background-color: red;
   color: white;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+#error:empty {
+  display: none;
 }

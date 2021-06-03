@@ -166,6 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const romInExpectedRegion = await ensureExpectedRegion(cleanRom, romRegion, patchRegion);
 
       submitButton.innerText = 'Patching (5/7)...';
+      await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
+
       const expectedSha1 = getCleanSha1ForRegion(patchRegion);
       console.log(`Validating checksum against clean SHA-1 "${expectedSha1}"`);
       const romSha1 = sha1(romInExpectedRegion);
@@ -174,6 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       submitButton.innerText = 'Patching (6/7)...';
+      await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
+
       console.log('Applying the ROM hack patch...');
       const patchedRom = applyPatch(romInExpectedRegion, patch);
 
@@ -193,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(e);
     } finally {
       submitButton.disabled = false;
-      submitButton.innerText = 'Patch';
+      submitButton.innerText = 'Apply Patch';
     }
   });
 });
