@@ -72,8 +72,10 @@ function getAndCheckRomRegion(rom) {
     return 'us';
   } else if (regionCode === 'P') { // Europe
     return 'eu';
+  } else if (regionCode === 'J') { // Japan
+    return 'jp';
   } else {
-    throw new UserError('The region of your ROM is not supported. Only US and EU roms are currently supported.');
+    throw new UserError('The region of your ROM is not supported. Only US, EU and Japanese roms are currently supported.');
   }
 }
 

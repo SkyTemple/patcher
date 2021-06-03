@@ -1,4 +1,4 @@
-# SkyTemple patcher
+# SkyTemple Patcher
 
 Tool for automatic patching of EoS ROMs. The tool automatically applies patches to ensure that the ROM is clean and from the right region, so it works on all common (decrypted) ROM versions versions and dumps. All patches must be generated from a "clean" ROM.
 
