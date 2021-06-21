@@ -124,8 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const region = params.get('region') || 'us';
   const patchUrl = patchName ? `https://hacks.skytemple.org/api/hack/${patchName}` : params.get('url');
   const validationSha1 = params.get('sha1');
+  const clean = params.has('clean');
 
-  if (!patchUrl) {
+  if (!patchUrl && !clean) {
     // No patch name or URL was passed as a parameter
     window.location.href = 'https://hacks.skytemple.org';
     return;
@@ -155,31 +156,39 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const rom = await readPromise;
 
-      submitButton.innerText = 'Patching (2/7)...';
-      const { patch, region: patchRegion } = await downloadPatch(patchUrl, region);
+      let patch, patchRegion;
+      if (patchUrl) {
+        submitButton.innerText = 'Patching (2/7)...';
+        const { patch: downloadedPatch, region } = await downloadPatch(patchUrl, region);
+        patch = downloadedPatch;
+        patchRegion = region;
+      }
 
       submitButton.innerText = 'Patching (3/7)...';
       const romRegion = getAndCheckRomRegion(rom);
       const cleanRom = await ensureCleanRom(rom, romRegion);
 
-      submitButton.innerText = 'Patching (4/7)...';
-      const romInExpectedRegion = await ensureExpectedRegion(cleanRom, romRegion, patchRegion);
+      let patchedRom = cleanRom;
+      if (patchUrl) {
+        submitButton.innerText = 'Patching (4/7)...';
+        const romInExpectedRegion = await ensureExpectedRegion(cleanRom, romRegion, patchRegion);
 
-      submitButton.innerText = 'Patching (5/7)...';
-      await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
+        submitButton.innerText = 'Patching (5/7)...';
+        await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
 
-      const expectedSha1 = getCleanSha1ForRegion(patchRegion);
-      console.log(`Validating checksum against clean SHA-1 "${expectedSha1}"`);
-      const romSha1 = sha1(romInExpectedRegion);
-      if (romSha1 !== expectedSha1) {
-        throw new Error(`Failed to clean rom or transition region (checksum mismatch: ${romSha1})`);
+        const expectedSha1 = getCleanSha1ForRegion(patchRegion);
+        console.log(`Validating checksum against clean SHA-1 "${expectedSha1}"`);
+        const romSha1 = sha1(romInExpectedRegion);
+        if (romSha1 !== expectedSha1) {
+          throw new Error(`Failed to clean rom or transition region (checksum mismatch: ${romSha1})`);
+        }
+
+        submitButton.innerText = 'Patching (6/7)...';
+        await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
+
+        console.log('Applying the ROM hack patch...');
+        patchedRom = applyPatch(romInExpectedRegion, patch);
       }
-
-      submitButton.innerText = 'Patching (6/7)...';
-      await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
-
-      console.log('Applying the ROM hack patch...');
-      const patchedRom = applyPatch(romInExpectedRegion, patch);
 
       if (validationSha1) {
         submitButton.innerText = 'Patching (7/7)...';
@@ -190,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      const name = patchName || getPatchNameFromUrl(patchUrl);
+      const name = patchName || patchUrl ? getPatchNameFromUrl(patchUrl) : 'clean';
       downloadFile(patchedRom, name);
     } catch (e) {
       reportError(e);
