@@ -4,7 +4,7 @@ Tool for automatic patching of EoS ROMs. The tool automatically applies patches 
 
 ## Parameters
 
-The following query parameters are supported. You must pass at least either `name` or `url`.
+The following query parameters are supported. You must pass at least either `name`, `url` or `clean`.
 
 - `name`: The short name of a romhack on `https://hacks.skytemple.org`. For example, if the overview page of a hack has the URL.
 `https://hacks.skytemple.org/h/myhack`, pass `myhack` as the parameter value
