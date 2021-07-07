@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let patch, patchRegion;
       if (patchUrl) {
         submitButton.innerText = 'Patching (2/7)...';
-        const { patch: downloadedPatch, region } = await downloadPatch(patchUrl, region);
-        patch = downloadedPatch;
-        patchRegion = region;
+        const result = await downloadPatch(patchUrl, region);
+        patch = result.patch;
+        patchRegion = result.region;
       }
 
       submitButton.innerText = 'Patching (3/7)...';
@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanRom = await ensureCleanRom(rom, romRegion);
 
       let patchedRom = cleanRom;
+      let expectedSha1;
       if (patchUrl) {
         submitButton.innerText = 'Patching (4/7)...';
         const romInExpectedRegion = await ensureExpectedRegion(cleanRom, romRegion, patchRegion);
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitButton.innerText = 'Patching (5/7)...';
         await new Promise(resolve => setTimeout(resolve, 20)); // Update the UI
 
-        const expectedSha1 = getCleanSha1ForRegion(patchRegion);
+        expectedSha1 = getCleanSha1ForRegion(patchRegion);
         console.log(`Validating checksum against clean SHA-1 "${expectedSha1}"`);
         const romSha1 = sha1(romInExpectedRegion);
         if (romSha1 !== expectedSha1) {
